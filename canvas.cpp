@@ -6,6 +6,7 @@
 #include "freehandline.h"
 #include "line.h"
 #include "circle.h"
+#include "polygon.h"
 #include "rectangle.h"
 
 Canvas::Canvas(QWidget *parent)
@@ -103,6 +104,8 @@ void Canvas::mousePressEvent(QMouseEvent *event)
             case RECTANGLE:
                 newObj = new Rectangle(startPos, currentPos);
                 break;
+            case POLYGON:
+                newObj = new Polygon();
             default:
                 break;
         }

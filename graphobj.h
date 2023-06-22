@@ -7,6 +7,8 @@ class GraphObj
 {
 public:
     GraphObj();
+    GraphObj(const GraphObj& object);
+    GraphObj& operator=(const GraphObj& object);
     ~GraphObj();
 
     virtual void draw(QPainter *painter) = 0;

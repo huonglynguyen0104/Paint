@@ -26,7 +26,7 @@ Paint::Paint(QWidget *parent)
     cobPrimModes->addItem(tr("Circle"), Canvas::CIRCLE);
     cobPrimModes->addItem(tr("Rectangle"), Canvas::RECTANGLE);
     //cobPrimModes->addItem(tr("Triangle"), Canvas::TRIANGLE);
-    //cobPrimModes->addItem(tr("Polygon"), Canvas::POLYGON);
+    cobPrimModes->addItem(tr("Polygon"), Canvas::POLYGON);
 
 	lblPrimModes = new QLabel("Primitive Mode");
 	lblPrimModes->setBuddy(cobPrimModes);

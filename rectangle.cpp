@@ -4,6 +4,7 @@
 Rectangle::Rectangle(const QPoint &topLeft, const QPoint &bottomRight)
                     :topLeft(topLeft), bottomRight(bottomRight)
 {}
+
 void Rectangle::draw(QPainter *painter){
         painter->drawRect(QRect(topLeft, bottomRight));
 }

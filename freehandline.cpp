@@ -3,6 +3,7 @@
 
 FreeHandLine::FreeHandLine()
 {}
+
 void FreeHandLine::draw(QPainter *painter){
     painter->drawPolyline(points.data(), points.size());
 }

@@ -11,6 +11,7 @@ HEADERS += paint.h \
            freehandline.h \
            graphobj.h \
            line.h \
+           polygon.h \
            rectangle.h \
            scene.h
 SOURCES += paint.cpp \
@@ -20,5 +21,6 @@ SOURCES += paint.cpp \
            graphobj.cpp \
            line.cpp \
            main.cpp \
+           polygon.cpp \
            rectangle.cpp \
            scene.cpp
