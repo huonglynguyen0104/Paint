@@ -57,10 +57,10 @@ void Scene::draw(QPainter* painter)
         {
             if(obj->getFillMode()){
                 painter->setBrush(obj->getColor());
-                painter->setPen(obj->getColor());
+                painter->setPen(QPen(obj->getColor(),obj->getLineWidth(),obj->getLineShape()));
                 obj->draw(painter);
             }else{
-                painter->setPen(obj->getColor());
+                painter->setPen(QPen(obj->getColor(),obj->getLineWidth(),obj->getLineShape()));
                 painter->setBrush(Qt::NoBrush);
                 obj->draw(painter);
             }

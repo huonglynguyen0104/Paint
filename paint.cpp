@@ -18,6 +18,7 @@ Paint::Paint(QWidget *parent)
 	viewport = new Canvas();
 
 	btnClearCanvas = new QPushButton("&Clear Canvas");
+    btnChangeBGColor = new QPushButton("& Change BG Color");
 
     cobPrimModes = new QComboBox();
     cobPrimModes->addItem(tr("None"), Canvas::NONE);
@@ -26,14 +27,31 @@ Paint::Paint(QWidget *parent)
     cobPrimModes->addItem(tr("Circle"), Canvas::CIRCLE);
     cobPrimModes->addItem(tr("Rectangle"), Canvas::RECTANGLE);
     //cobPrimModes->addItem(tr("Triangle"), Canvas::TRIANGLE);
-    cobPrimModes->addItem(tr("Polygon"), Canvas::POLYGON);
+    //cobPrimModes->addItem(tr("Polygon"), Canvas::POLYGON);
 
-	lblPrimModes = new QLabel("Primitive Mode");
-	lblPrimModes->setBuddy(cobPrimModes);
+    lblPrimModes = new QLabel("Primitive Mode");
+    lblPrimModes->setBuddy(cobPrimModes);
+
+    cobLineWidths = new QComboBox();
+    cobLineWidths->addItem(tr("1.0"), Canvas::WIDTH1);
+    cobLineWidths->addItem(tr("2.0"), Canvas::WIDTH2);
+    cobLineWidths->addItem(tr("3.0"), Canvas::WIDTH3);
+    cobLineWidths->addItem(tr("4.0"), Canvas::WIDTH4);
+
+    lblLineWidths = new QLabel("Line Width");
+    lblLineWidths->setBuddy(cobLineWidths);
+
+    cobLineShapes = new QComboBox();
+    cobLineShapes->addItem(tr("Solid Line"), Canvas::SOLIDLINE);
+    cobLineShapes->addItem(tr("Dash Line"), Canvas::DASHLINE);
+    cobLineShapes->addItem(tr("Dot Line"), Canvas::DOTLINE);
+
+    lblLineShapes = new QLabel("Line Shape");
+    lblLineShapes->setBuddy(cobLineShapes);
 
     btnDeleteObj = new QPushButton("&Delete Selected");
     btnDeleteObj->setDisabled(true);
-    btnChangeCol = new QPushButton("C&hange Color");
+    btnChangeCol = new QPushButton("C&hange Object Color");
 
     cbOutline = new QCheckBox("Show Only &Outline", this);
 
@@ -61,8 +79,14 @@ Paint::Paint(QWidget *parent)
     mainLayout->addWidget(lblPrimModes,   1, 2, Qt::AlignRight);
     mainLayout->addWidget(cobPrimModes,   1, 3);
     //mainLayout->addWidget(btnDeleteObj,   2, 0);
-    mainLayout->addWidget(btnClearCanvas, 3, 3);
+    mainLayout->addWidget(btnClearCanvas, 4, 3);
+    mainLayout->addWidget(btnChangeBGColor, 3, 3);
+
     mainLayout->addWidget(interactionModeGroup, 1, 0 );
+    mainLayout->addWidget(lblLineWidths,  2, 1, Qt::AlignLeft);
+    mainLayout->addWidget(cobLineWidths,  2, 0);
+    mainLayout->addWidget(lblLineShapes,  3, 1, Qt::AlignLeft);
+    mainLayout->addWidget(cobLineShapes,  3, 0);
 
 	// add layout to this widget instance
 	setLayout(mainLayout);
@@ -90,6 +114,12 @@ Paint::Paint(QWidget *parent)
             this, SLOT(interactionModeChanged()));
     connect(btnTransform, SIGNAL(toggled(bool)),
             this, SLOT(interactionModeChanged()));
+    connect(cobLineWidths, SIGNAL(activated(int)),
+            this, SLOT(lineWidthChanged()));
+    connect(cobLineShapes, SIGNAL(activated(int)),
+            this, SLOT(lineShapeChanged()));
+    connect(btnChangeBGColor, SIGNAL(clicked()),
+            this, SLOT(changeBGColorBtnPressed()));
 }
 
 /** d'tor */
@@ -118,7 +148,17 @@ void Paint::colorBtnPressed()
     QColor color = QColorDialog::getColor(Qt::yellow, this );
     if (color.isValid()) {
         qDebug() << "Color Choosen : " << color.name();
-        viewport->setObjColor(color);
+        viewport->setColor(color);
+    }
+}
+
+void Paint::changeBGColorBtnPressed(){
+    QColor color = QColorDialog::getColor(Qt::yellow, this );
+    if (color.isValid()) {
+        qDebug() << "Color Choosen : " << color.name();
+        viewport->changeBGColor(color);
+        update();
+        qDebug() << "Back Ground Color changed.";
     }
 }
 
@@ -134,6 +174,22 @@ void Paint::primModeChanged()
 			   cobPrimModes->currentIndex(), Qt::UserRole).toInt();
 	viewport->setPrimitiveMode(mode);
     qDebug() << "Primitive Mode changed to " << mode;
+}
+
+void Paint::lineWidthChanged()
+{
+    int mode = cobLineWidths->itemData(
+                               cobLineWidths->currentIndex(), Qt::UserRole).toInt();
+    viewport->setLineWidth(mode);
+    qDebug() << "Line Width Mode changed to " << mode;
+}
+
+void Paint::lineShapeChanged()
+{
+    int mode = cobLineShapes->itemData(
+                               cobLineShapes->currentIndex(), Qt::UserRole).toInt();
+    viewport->setLineShape(mode);
+    qDebug() << "Line Shape Mode changed to " << mode;
 }
 
 void Paint::interactionModeChanged(){

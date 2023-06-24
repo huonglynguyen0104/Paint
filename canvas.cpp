@@ -6,7 +6,6 @@
 #include "freehandline.h"
 #include "line.h"
 #include "circle.h"
-#include "polygon.h"
 #include "rectangle.h"
 
 Canvas::Canvas(QWidget *parent)
@@ -34,7 +33,6 @@ QSize Canvas::sizeHint() const
 void Canvas::clearCanvas(void)
 {
     scene.clearCanvas();
-
 }
 
 void Canvas::setPrimitiveMode(int mode)
@@ -46,12 +44,24 @@ void Canvas::setInteractionMode(int mode){
     this->mode = (Canvas::InteractionMode)mode;
 }
 
-void Canvas::setObjColor(QColor color){
+void Canvas::setLineWidth(int mode){
+    lineWidth = (Canvas::LineWidth)mode;
+}
+
+void Canvas::setLineShape(int mode){
+    lineShape = (Canvas::LineShape)mode;
+}
+
+void Canvas::setColor(QColor color){
     this->color = color;
 }
 
 void Canvas::setFillMode(bool fillMode){
     this->fillMode = fillMode;
+}
+
+void Canvas::changeBGColor(QColor color){
+    this->BGColor = color;
 }
 
 void Canvas::paintEvent(QPaintEvent *event)
@@ -61,7 +71,8 @@ void Canvas::paintEvent(QPaintEvent *event)
     QPainter painter(this);
 
     // white background (inside parent's border)
-    painter.fillRect(QRect(1, 1, width() - 2, height() - 2), Qt::white);
+    //painter.fillRect(QRect(1, 1, width() - 2, height() - 2), Qt::white);
+    painter.fillRect(QRect(1, 1, width() - 2, height() - 2), BGColor);
 
     scene.draw(&painter);
 
@@ -90,6 +101,7 @@ void Canvas::mousePressEvent(QMouseEvent *event)
         currentPos = startPos;
 
         GraphObj* newObj = nullptr;
+
         switch (type)
         {
             case FREE_HAND:
@@ -104,8 +116,6 @@ void Canvas::mousePressEvent(QMouseEvent *event)
             case RECTANGLE:
                 newObj = new Rectangle(startPos, currentPos);
                 break;
-            case POLYGON:
-                newObj = new Polygon();
             default:
                 break;
         }
@@ -113,6 +123,8 @@ void Canvas::mousePressEvent(QMouseEvent *event)
         {
             newObj->setColor(color);
             newObj->setFillMode(fillMode);
+            newObj->setLineWidth(lineWidth);
+            newObj->setLineShape(lineShape);
             scene.addObj(newObj);
             update();
         }
@@ -161,8 +173,8 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
 {
     if (mode == CREAT && (event->buttons() & Qt::LeftButton) && dragging) {
         currentPos = event->pos();
-
         GraphObj* lastObj = scene.getLastObj();
+
         if (lastObj)
         {
             lastObj->update(currentPos);
@@ -184,9 +196,10 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event)
 {
     if (mode == CREAT && event->button() == Qt::LeftButton && dragging) {
         currentPos = event->pos();
-		dragging = false;
+        dragging = false;
 
         GraphObj* lastObj = scene.getLastObj();
+        lastObj->update(currentPos);
         if (lastObj)
         {
             lastObj->update(currentPos);

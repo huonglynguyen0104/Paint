@@ -15,6 +15,10 @@ public:
 
     enum InteractionMode { CREAT, DEL, COL, TRAFO };
 
+    enum LineWidth { WIDTH1, WIDTH2, WIDTH3, WIDTH4 };
+
+    enum LineShape { SOLIDLINE, DASHLINE, DOTLINE };
+
 	Canvas(QWidget *parent = 0);
 	~Canvas();
 
@@ -24,8 +28,11 @@ public:
 	void clearCanvas(void);
 	void setPrimitiveMode(int mode);
     void setInteractionMode(int mode);
-    void setObjColor(QColor color);
+    void setColor(QColor color);
     void setFillMode(bool fillMode);
+    void setLineWidth(int mode);
+    void setLineShape(int mode);
+    void changeBGColor(QColor color);
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -39,7 +46,10 @@ private:
 	bool dragging;
 	PrimitiveMode type;
     InteractionMode mode = CREAT;
+    LineWidth lineWidth = WIDTH1;
+    LineShape lineShape = SOLIDLINE;
     QColor color;
+    QColor BGColor = Qt::white;
     bool fillMode = true;
     Scene scene;
     QPoint startPos;
@@ -47,7 +57,6 @@ private:
     QPoint lastPos;
     QPoint displacement;
     GraphObj* selectedObj = nullptr;
-
 };
 
 #endif // CANVAS_H

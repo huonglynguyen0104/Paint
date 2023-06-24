@@ -23,16 +23,24 @@ private slots:
 	void clearBtnPressed();
     void deleteBtnPressed();
     void colorBtnPressed();
+    void changeBGColorBtnPressed();
 	void primModeChanged();
     void interactionModeChanged();
+    void lineWidthChanged();
+    void lineShapeChanged();
     void showOutlineOnly(bool);
 
 private:
 	Canvas *viewport;
 
 	QPushButton *btnClearCanvas;
+    QPushButton *btnChangeBGColor;
 	QComboBox *cobPrimModes;
+    QComboBox *cobLineWidths;
+    QComboBox *cobLineShapes;
 	QLabel *lblPrimModes;
+    QLabel *lblLineWidths;
+    QLabel *lblLineShapes;
     QPushButton *btnDeleteObj;
     QPushButton *btnChangeCol;
     QCheckBox *cbOutline;

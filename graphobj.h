@@ -23,12 +23,20 @@ public:
     void setFillMode(bool fillMode);
     bool getFillMode() const;
 
+    void setLineWidth(int mode);
+    int getLineWidth() const;
+
+    void setLineShape(int mode);
+    Qt::PenStyle getLineShape() const;
+
     virtual double getSize () const = 0;
     virtual bool inside(QPoint &point) = 0;
 
 protected:
     QColor color = Qt::black;
     bool fillMode = true;
+    int lineWidth = 1;
+    Qt::PenStyle lineShape = Qt::SolidLine;
 
 };
 
