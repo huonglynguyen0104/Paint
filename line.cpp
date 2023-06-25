@@ -45,3 +45,10 @@ void Line::move(const QPoint &point){
 GraphObj* Line::clone() const{
     return new Line(*this);
 }
+
+void Line::calcBBox(QPoint &min, QPoint &max) const {
+    min.setX(std::min(startPoint.x(), endPoint.x()));
+    min.setY(std::min(startPoint.y(), endPoint.y()));
+    max.setX(std::max(startPoint.x(), endPoint.x()));
+    max.setY(std::max(startPoint.y(), endPoint.y()));
+}

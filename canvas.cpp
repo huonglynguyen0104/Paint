@@ -64,6 +64,10 @@ void Canvas::changeBGColor(QColor color){
     this->BGColor = color;
 }
 
+void Canvas::setShowBBoxes(bool bBoxesMode){
+    this->bBoxesMode = bBoxesMode;
+}
+
 void Canvas::paintEvent(QPaintEvent *event)
 {
     QFrame::paintEvent(event);  // parent class draws border
@@ -125,9 +129,12 @@ void Canvas::mousePressEvent(QMouseEvent *event)
             newObj->setFillMode(fillMode);
             newObj->setLineWidth(lineWidth);
             newObj->setLineShape(lineShape);
+            newObj->setShowBBox(bBoxesMode);
+
             scene.addObj(newObj);
             update();
         }
+
 	}
     if (mode == COL){
         if (event->button() == Qt::LeftButton){

@@ -39,3 +39,10 @@ void Rectangle::move(const QPoint &point){
 GraphObj* Rectangle::clone() const{
     return new Rectangle(*this);
 }
+
+void Rectangle::calcBBox(QPoint &min, QPoint &max) const {
+    min.setX(std::min(topLeft.x(), bottomRight.x()));
+    min.setY(std::min(topLeft.y(), bottomRight.y()));
+    max.setX(std::max(topLeft.x(), bottomRight.x()));
+    max.setY(std::max(topLeft.y(), bottomRight.y()));
+}

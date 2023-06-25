@@ -43,3 +43,17 @@ void FreeHandLine::move(const QPoint &point){
 GraphObj* FreeHandLine::clone() const{
     return new FreeHandLine(*this);
 }
+
+void FreeHandLine::calcBBox(QPoint &min, QPoint &max) const {
+    if (points.isEmpty()) {
+        min = max = QPoint();
+    } else {
+        min = max = points.first();
+        for (const QPoint& point : points) {
+            min.setX(std::min(min.x(), point.x()));
+            min.setY(std::min(min.y(), point.y()));
+            max.setX(std::max(max.x(), point.x()));
+            max.setY(std::max(max.y(), point.y()));
+        }
+    }
+}

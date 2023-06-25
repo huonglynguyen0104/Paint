@@ -20,6 +20,8 @@ public:
     double getSize () const override;
     bool inside(QPoint &point) override;
 
+    void calcBBox(QPoint &min, QPoint &max) const override;
+
 private:
     QPoint center;
     int radius;

@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "bboxdecorator.h"
 
 Scene::Scene(){}
 
@@ -63,6 +64,10 @@ void Scene::draw(QPainter* painter)
                 painter->setPen(QPen(obj->getColor(),obj->getLineWidth(),obj->getLineShape()));
                 painter->setBrush(Qt::NoBrush);
                 obj->draw(painter);
+            }
+            if(obj->getShowBBox()){
+                BBoxDecorator *newBBoxObj = new BBoxDecorator(obj);
+                newBBoxObj->draw(painter);
             }
         }
     }

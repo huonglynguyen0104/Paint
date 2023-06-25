@@ -49,9 +49,17 @@ bool GraphObj::getFillMode() const{
 int GraphObj::getLineWidth() const{
     return lineWidth;
 }
+
 Qt::PenStyle GraphObj::getLineShape() const{
     return lineShape;
 }
 
+void GraphObj::setShowBBox(bool BBox){
+    showBoundingBox = BBox;
+}
+
+bool GraphObj::getShowBBox() const{
+    return showBoundingBox;
+}
 
 

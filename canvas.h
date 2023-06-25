@@ -33,6 +33,7 @@ public:
     void setLineWidth(int mode);
     void setLineShape(int mode);
     void changeBGColor(QColor color);
+    void setShowBBoxes(bool bBoxesMode);
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -51,6 +52,7 @@ private:
     QColor color;
     QColor BGColor = Qt::white;
     bool fillMode = true;
+    bool bBoxesMode = false;
     Scene scene;
     QPoint startPos;
     QPoint currentPos;

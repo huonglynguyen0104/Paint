@@ -54,6 +54,7 @@ Paint::Paint(QWidget *parent)
     btnChangeCol = new QPushButton("C&hange Object Color");
 
     cbOutline = new QCheckBox("Show Only &Outline", this);
+    cbBBoxes = new QCheckBox("Show all BBoxes", this);
 
     interactionModeGroup = new QGroupBox("Selection Tools");
     btnCreate = new QRadioButton(tr("Create"));
@@ -87,6 +88,7 @@ Paint::Paint(QWidget *parent)
     mainLayout->addWidget(cobLineWidths,  2, 0);
     mainLayout->addWidget(lblLineShapes,  3, 1, Qt::AlignLeft);
     mainLayout->addWidget(cobLineShapes,  3, 0);
+    mainLayout->addWidget(cbBBoxes,       3, 2, Qt::AlignRight);
 
 	// add layout to this widget instance
 	setLayout(mainLayout);
@@ -120,6 +122,8 @@ Paint::Paint(QWidget *parent)
             this, SLOT(lineShapeChanged()));
     connect(btnChangeBGColor, SIGNAL(clicked()),
             this, SLOT(changeBGColorBtnPressed()));
+    connect(cbBBoxes, SIGNAL(toggled(bool)),
+            this, SLOT(showBBoxes(bool)));
 }
 
 /** d'tor */
@@ -166,6 +170,11 @@ void Paint::showOutlineOnly(bool outline)
 {
     qDebug() << "Only show outline: " << outline;
     viewport->setFillMode(!outline);
+}
+
+void Paint::showBBoxes(bool bBoxes) {
+    qDebug() << "Show all BBoxes: " << bBoxes;
+    viewport->setShowBBoxes(bBoxes);
 }
 
 void Paint::primModeChanged()

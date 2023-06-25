@@ -1,15 +1,15 @@
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
+#ifndef BBOXDECORATOR_H
+#define BBOXDECORATOR_H
 #include "graphobj.h"
 
 
-class Rectangle : public GraphObj
+class BBoxDecorator : public GraphObj
 {
 public:
-    Rectangle(const QPoint &topLeft, const QPoint &bottomRight);
-    ~Rectangle(){};
+    BBoxDecorator(GraphObj* obj);
 
     void draw(QPainter *painter) override;
+    //void drawBBox(QPainter *painter);
     void update(const QPoint &point) override;
     void move(const QPoint &point) override;
 
@@ -21,8 +21,7 @@ public:
     void calcBBox(QPoint &min, QPoint &max) const override;
 
 private:
-    QPoint topLeft;
-    QPoint bottomRight;
+    GraphObj *object;
 };
 
-#endif // RECTANGLE_H
+#endif // BBOXDECORATOR_H

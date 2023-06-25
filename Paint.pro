@@ -6,6 +6,7 @@ DEFINES += QT_WIDGETS_LIB
 INCLUDEPATH += .
 
 HEADERS += paint.h \
+           bboxdecorator.h \
            canvas.h  \
            circle.h \
            freehandline.h \
@@ -14,6 +15,7 @@ HEADERS += paint.h \
            rectangle.h \
            scene.h
 SOURCES += paint.cpp \
+           bboxdecorator.cpp \
            canvas.cpp \
            circle.cpp \
            freehandline.cpp \

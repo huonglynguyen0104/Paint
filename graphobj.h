@@ -32,11 +32,16 @@ public:
     virtual double getSize () const = 0;
     virtual bool inside(QPoint &point) = 0;
 
+    virtual void calcBBox(QPoint &min, QPoint &max) const = 0;
+    void setShowBBox(bool BBox);
+    bool getShowBBox() const;
+
 protected:
     QColor color = Qt::black;
     bool fillMode = true;
     int lineWidth = 1;
     Qt::PenStyle lineShape = Qt::SolidLine;
+    bool showBoundingBox = false;
 
 };
 

@@ -35,3 +35,10 @@ void Circle::move(const QPoint &point){
 GraphObj* Circle::clone() const{
     return new Circle(*this);
 }
+
+void Circle::calcBBox(QPoint &min, QPoint &max) const {
+    min.setX(center.x() - radius);
+    min.setY(center.y() - radius);
+    max.setX(center.x() + radius);
+    max.setY(center.y() + radius);
+}

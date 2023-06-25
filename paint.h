@@ -29,6 +29,7 @@ private slots:
     void lineWidthChanged();
     void lineShapeChanged();
     void showOutlineOnly(bool);
+    void showBBoxes(bool bBoxes);
 
 private:
 	Canvas *viewport;
@@ -44,6 +45,7 @@ private:
     QPushButton *btnDeleteObj;
     QPushButton *btnChangeCol;
     QCheckBox *cbOutline;
+    QCheckBox *cbBBoxes;
     QGroupBox* interactionModeGroup;
     QRadioButton *btnCreate;
     QRadioButton *btnDelete;
